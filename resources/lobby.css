@@ -195,6 +195,24 @@ body {
     background-color: rgb(243, 132, 247);
 }
 
+
+:root {
+    --line-width-button-checked:rgb(243, 132, 247);
+    --line-width-button-hover:rgb(244, 183, 247);
+    --line-width-button-default:rgb(218, 218, 218);
+}
+
+.line-width-button-new {
+    background-color: var(--line-width-button-default);
+    border: none;
+    padding: 0px 0px;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #color-picker {
     border: 0;
     background-color: rgb(218, 218, 218);
