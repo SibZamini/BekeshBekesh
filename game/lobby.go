@@ -408,7 +408,9 @@ func commandSetMP(caller *Player, lobby *Lobby, args []string) {
 }
 
 func endTurn(lobby *Lobby) {
+	log.Printf("End turn: %s\n", lobby.ID)
 	if lobby.timeLeftTicker != nil {
+		log.Printf("Killing time ticker: %s\n", lobby.ID)
 		lobby.timeLeftTicker.Stop()
 		lobby.timeLeftTickerReset <- struct{}{}
 	}
@@ -450,6 +452,7 @@ func endTurn(lobby *Lobby) {
 
 // advanceLobby will either start the game or jump over to the next turn.
 func advanceLobby(lobby *Lobby) {
+	log.Printf("Advancing lobby: %s\n", lobby.ID)
 	for _, otherPlayer := range lobby.Players {
 		otherPlayer.State = Guessing
 		otherPlayer.votedForKick = make(map[string]bool)
@@ -516,6 +519,7 @@ func selectNextDrawer(lobby *Lobby) (*Player, bool) {
 }
 
 func roundTimerTicker(lobby *Lobby) {
+	log.Printf("Starting time ticker: %s\n", lobby.ID)
 	hintsLeft := 2
 	revealHintAtMillisecondsLeft := lobby.DrawingTime * 1000 / 3
 
@@ -524,6 +528,7 @@ func roundTimerTicker(lobby *Lobby) {
 		case <-lobby.timeLeftTicker.C:
 			currentTime := getTimeAsMillis()
 			if currentTime >= lobby.RoundEndTime {
+				log.Printf("Time over in roundTimerTicker: %s\n", lobby.ID)
 				go endTurn(lobby)
 			}
 
@@ -543,6 +548,7 @@ func roundTimerTicker(lobby *Lobby) {
 				}
 			}
 		case <-lobby.timeLeftTickerReset:
+			log.Printf("Exiting time ticker routine: %s\n", lobby.ID)
 			return
 		}
 	}
