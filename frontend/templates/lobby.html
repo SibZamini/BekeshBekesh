@@ -85,6 +85,10 @@
                                         onclick="chooseWord(1)"></button>
                                     <button id="word-button-two" class="dialog-button"
                                         onclick="chooseWord(2)"></button>
+                                    <button id="word-button-three" class="dialog-button"
+                                            onclick="chooseWord(3)"></button>
+                                    <button id="word-button-four" class="dialog-button"
+                                            onclick="chooseWord(4)"></button>
                                 </div>
                             </div>
                         </div>
@@ -168,6 +172,13 @@
                                         <details class="advanced-section">
                                             <summary>{{.Translation.Get "advanced-settings"}}</summary>
                                             <div class="input-container">
+                                                <b>{{.Translation.Get "words-per-round"}}</b>
+
+                                                <input id="lobby-settings-words-per-round" type="number"
+                                                       name="words-per-round" min="{{.MinWordsPerRound}}"
+                                                       max="{{.MaxWordsPerRound}}"
+                                                       value="3" />
+
                                                 <b>{{.Translation.Get "players-per-ip-limit-setting"}}</b>
                                                 <input id="lobby-settings-clients-per-ip-limit" type="number"
                                                     name="clients_per_ip_limit" min="{{.MinClientsPerIPLimit}}"
@@ -515,6 +526,8 @@
         const wordButtonZero = document.getElementById("word-button-zero");
         const wordButtonOne = document.getElementById("word-button-one");
         const wordButtonTwo = document.getElementById("word-button-two");
+        const wordButtonThree = document.getElementById("word-button-three");
+        const wordButtonFour = document.getElementById("word-button-four");
 
         const kickDialog = document.getElementById("kick-dialog");
         const kickDialogPlayers = document.getElementById("kick-dialog-players");
@@ -625,6 +638,7 @@
                 max_players: document.getElementById("lobby-settings-max-players").value,
                 clients_per_ip_limit: document.getElementById("lobby-settings-clients-per-ip-limit").value,
                 custom_words_chance: document.getElementById("lobby-settings-custom-words-chance").value,
+                words_per_round: document.getElementById("lobby-settings-words-per-round").value
             }), {
                 method: 'PATCH',
             })
@@ -999,7 +1013,7 @@
                 } else if (parsed.type === "your-turn") {
                     playWav('{{.RootPath}}/resources/your-turn.wav');
                     waitChooseDialog.style.visibility = "hidden";
-                    promptWords(parsed.data[0], parsed.data[1], parsed.data[2]);
+                    promptWords(parsed.data[0], parsed.data[1], parsed.data[2], parsed.data[3], parsed.data[4]);
                 } else if (parsed.type === "drawing") {
                     applyDrawData(parsed.data);
                 } else if (parsed.type === "kick-vote") {
@@ -1199,10 +1213,24 @@
             }
         }
 
-        function promptWords(wordOne, wordTwo, wordThree) {
+        function promptWords(wordOne, wordTwo, wordThree, wordFour, wordFive) {
             wordButtonZero.textContent = wordOne;
-            wordButtonOne.textContent = wordTwo;
-            wordButtonTwo.textContent = wordThree;
+            if(wordTwo)
+                wordButtonOne.textContent = wordTwo;
+            else
+                wordButtonOne.hidden = true
+            if(wordThree)
+                wordButtonTwo.textContent = wordThree;
+            else
+                wordButtonTwo.hidden = true
+            if(wordFour)
+                wordButtonThree.textContent = wordFour;
+            else
+                wordButtonThree.hidden = true
+            if(wordFive)
+                wordButtonFour.textContent = wordFive;
+            else
+                wordButtonFour.hidden = true
             wordDialog.style.visibility = "visible";
         }
 
