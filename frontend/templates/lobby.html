@@ -919,10 +919,13 @@
         }
 
         function redrawCanvas(){
-            requestedForRedraw = true
-            socket.send(JSON.stringify({
-                type: "request-drawing",
-            }));
+            if(!requestedForRedraw)
+            {
+                requestedForRedraw = true
+                socket.send(JSON.stringify({
+                    type: "request-drawing",
+                }));
+            }
         }
 
         //This automatically scrolls down the chat on arrivals of new messages
@@ -1035,10 +1038,8 @@
                     waitChooseDialog.style.visibility = "hidden";
                     promptWords(parsed.data[0], parsed.data[1], parsed.data[2], parsed.data[3], parsed.data[4]);
                 } else if (parsed.type === "drawing") {
-                    if(requestedForRedraw) {
-                        applyDrawData(parsed.data);
-                        requestedForRedraw = false
-                    }
+                    applyDrawData(parsed.data);
+                    requestedForRedraw = false
                 } else if (parsed.type === "kick-vote") {
                     if (parsed.data.playerId === ownID && parsed.data.voteCount >= parsed.data.requiredVoteCount) {
                         alert('{{.Translation.Get "self-kicked"}}');
