@@ -53,6 +53,12 @@
                             title="{{.Translation.Get "change-lobby-settings"}}">
                             <img src="{{.RootPath}}/resources/settings.svg" class="header-button-image" />
                         </button>
+                        <button onclick="undo()"
+                                class="dialog-button header-button" alt="{{.Translation.Get "undo"}}"
+                        title="{{.Translation.Get "undo"}}">
+                        <img src="{{.RootPath}}/resources/undo.png" class="header-button-image" />
+                        </button>
+
                     </div>
                 </div>
 
@@ -368,6 +374,7 @@
                 <button class="canvas-button toolbox-group" style="font-size: 2rem;" onclick="clearCanvasAndSendEvent()"
                     alt="{{.Translation.Get "clear-canvas"}}" title="{{.Translation.Get "clear-canvas"}}">🗑
                 </button>
+
             </div>
 
             <div id="chat">
@@ -1494,13 +1501,17 @@
         }
         function KeyPress(e) {
             if (e.keyCode === 90 && e.ctrlKey){
-                socket.send(JSON.stringify({
-                    type: "undo",
-                }));
-                socket.send(JSON.stringify({
-                    type: "request-drawing",
-                }));
+                undo()
             }
+        }
+
+        function undo(){
+            socket.send(JSON.stringify({
+                type: "undo",
+            }));
+            socket.send(JSON.stringify({
+                type: "request-drawing",
+            }));
         }
 
         document.onkeydown = KeyPress;
