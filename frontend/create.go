@@ -3,10 +3,10 @@ package frontend
 import (
 	"net/http"
 
-	"github.com/scribble-rs/scribble.rs/api"
-	"github.com/scribble-rs/scribble.rs/game"
-	"github.com/scribble-rs/scribble.rs/state"
-	"github.com/scribble-rs/scribble.rs/translations"
+	"github.com/ahmadrezadl/bekeshbekesh/api"
+	"github.com/ahmadrezadl/bekeshbekesh/game"
+	"github.com/ahmadrezadl/bekeshbekesh/state"
+	"github.com/ahmadrezadl/bekeshbekesh/translations"
 )
 
 //This file contains the API for the official web client.

@@ -1,4 +1,4 @@
-module github.com/scribble-rs/scribble.rs
+module github.com/ahmadrezadl/bekeshbekesh
 
 go 1.16
 

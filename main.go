@@ -11,8 +11,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/scribble-rs/scribble.rs/api"
-	"github.com/scribble-rs/scribble.rs/frontend"
+	"github.com/ahmadrezadl/bekeshbekesh/api"
+	"github.com/ahmadrezadl/bekeshbekesh/frontend"
 )
 
 func main() {
