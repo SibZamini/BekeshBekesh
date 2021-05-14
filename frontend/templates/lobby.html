@@ -978,6 +978,12 @@
                     context.fillFlood(parsed.data.x * scaleDownFactor(), parsed.data.y * scaleDownFactor(), parsed.data.color);
                 } else if (parsed.type === "clear-drawing-board") {
                     clear(context);
+                }
+                else if (parsed.type === "undo") {
+                        clear(context);
+                        socket.send(JSON.stringify({
+                            type: "request-drawing",
+                        }));
                 } else if (parsed.type === "next-turn") {
                     setRoundEndTime(parsed.data.roundEndTime);
 
@@ -1378,6 +1384,8 @@
                         drawLine(context, drawData.fromX * scaleDownFactor(),
                             drawData.fromY * scaleDownFactor(), drawData.toX * scaleDownFactor(),
                             drawData.toY * scaleDownFactor(), drawData.color, drawData.lineWidth * scaleDownFactor());
+                    } else if(drawElement.type === "save") {
+                        return
                     } else {
                         console.log("Unknown draw element type: " + drawData.type);
                     }
@@ -1442,10 +1450,16 @@
         drawingBoard.addEventListener('touchmove', onTouchMove);
 
         function onMouseDown(event) {
-            if (allowDrawing && event.buttons === 1 && localTool !== fillBucket) {
-                const clientRect = drawingBoard.getBoundingClientRect();
-                lastX = event.clientX - clientRect.left;
-                lastY = event.clientY - clientRect.top;
+            if(allowDrawing && event.buttons === 1)
+            {
+                socket.send(JSON.stringify({
+                    type: "save",
+                }));
+                if(localTool !== fillBucket) {
+                    const clientRect = drawingBoard.getBoundingClientRect();
+                    lastX = event.clientX - clientRect.left;
+                    lastY = event.clientY - clientRect.top;
+                }
             }
         }
 
@@ -1478,7 +1492,18 @@
                 }
             }
         }
+        function KeyPress(e) {
+            if (e.keyCode === 90 && e.ctrlKey){
+                socket.send(JSON.stringify({
+                    type: "undo",
+                }));
+                socket.send(JSON.stringify({
+                    type: "request-drawing",
+                }));
+            }
+        }
 
+        document.onkeydown = KeyPress;
         drawingBoard.addEventListener('mousedown', onMouseDown)
         drawingBoard.addEventListener('mousemove', onMouseMove);
         drawingBoard.addEventListener('mouseleave', onMouseMove);
