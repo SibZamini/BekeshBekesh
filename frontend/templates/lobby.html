@@ -76,7 +76,7 @@
                     visible at a time, but they'll be layered and there's no rule as to how. -->
                     <div id="center-dialogs">
                         <div id="word-dialog" class="center-dialog">
-                            <span class="dialog-title">{{.Translation.Get "choose-a-word"}}</span>
+                            <span id="choose-a-word-title" class="dialog-title">{{.Translation.Get "choose-a-word"}}</span>
                             <div class="center-dialog-content">
                                 <div class="word-button-container">
                                     <button id="word-button-zero" class="dialog-button"
@@ -1217,8 +1217,11 @@
             wordButtonZero.textContent = wordOne;
             if(wordTwo)
                 wordButtonOne.textContent = wordTwo;
-            else
+            else {
                 wordButtonOne.hidden = true
+                wordButtonZero.textContent = "شروع"
+                document.getElementById("choose-a-word-title").textContent = "کلمه: " + wordOne
+            }
             if(wordThree)
                 wordButtonTwo.textContent = wordThree;
             else
