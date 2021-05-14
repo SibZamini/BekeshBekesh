@@ -22,7 +22,7 @@ Play on this [Website](https://bekeshbekesh.herokuapp.com/)
 
 ```shell
 git clone https://github.com/Ahmadrezadl/bekeshbekesh.git
-cd scribble.rs
+cd bekeshbekesh
 ```
 
 برای لینوکس با کامند زیر بیلد بگیرید
@@ -34,6 +34,11 @@ make build
 برای ویندوز با کامند زیر بیلد بگیرید
 ```shell
 go build -o bekeshbekesh.exe .
+```
+
+ران کردن با گو
+```shell
+go run .
 ```
 
 حالا فایل باینری ساخته شده را اجرا کنید
