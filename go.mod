@@ -2,6 +2,7 @@ module github.com/ahmadrezadl/bekeshbekesh
 
 go 1.16
 
+
 require (
 	github.com/Ahmadrezadl/funny-name-generator v0.3.0
 	github.com/Bios-Marcel/discordemojimap/v2 v2.0.1

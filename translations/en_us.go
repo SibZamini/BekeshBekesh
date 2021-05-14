@@ -18,6 +18,7 @@ func initEnglishTranslation() Translation {
 	translation.put("save", "Save")
 	translation.put("votekick-a-player", "Vote to kick a player")
 	translation.put("time-left", "Time")
+	translation.put("words-per-round", "words of per round")
 
 	translation.put("last-turn", "(Last turn: %s)")
 

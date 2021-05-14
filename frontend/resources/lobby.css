@@ -458,6 +458,15 @@ input[type="button"]:active,
 
 .gameover-scoreboard-rank {
     margin-right: 1rem;
+    margin-left: 1rem;
+}
+
+.gameover-scoreboard-rank::after {
+    content: '-';
+}
+
+.gameover-scoreboard-name::after {
+    content: "   ";
 }
 
 .gameover-scoreboard-name {
