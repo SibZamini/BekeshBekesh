@@ -729,6 +729,8 @@
         let toolButtonRubber = document.getElementById("tool-type-rubber");
         let toolButtonFill = document.getElementById("tool-type-fill");
 
+        let requestedForRedraw = false
+
         //We use the states present in UI elements, since in case of
         //hitting F5(Refresh), the browser will not reset these states to the
         //initial values defined in the HTML.
@@ -916,6 +918,13 @@
             hideKickDialog();
         }
 
+        function redrawCanvas(){
+            requestedForRedraw = true
+            socket.send(JSON.stringify({
+                type: "request-drawing",
+            }));
+        }
+
         //This automatically scrolls down the chat on arrivals of new messages
         new MutationObserver(() => messageContainer.scrollTop = messageContainer.scrollHeight)
             .observe(messageContainer, {
@@ -988,9 +997,7 @@
                 }
                 else if (parsed.type === "undo") {
                         clear(context);
-                        socket.send(JSON.stringify({
-                            type: "request-drawing",
-                        }));
+                        redrawCanvas()
                 } else if (parsed.type === "next-turn") {
                     setRoundEndTime(parsed.data.roundEndTime);
 
@@ -1028,7 +1035,10 @@
                     waitChooseDialog.style.visibility = "hidden";
                     promptWords(parsed.data[0], parsed.data[1], parsed.data[2], parsed.data[3], parsed.data[4]);
                 } else if (parsed.type === "drawing") {
-                    applyDrawData(parsed.data);
+                    if(requestedForRedraw) {
+                        applyDrawData(parsed.data);
+                        requestedForRedraw = false
+                    }
                 } else if (parsed.type === "kick-vote") {
                     if (parsed.data.playerId === ownID && parsed.data.voteCount >= parsed.data.requiredVoteCount) {
                         alert('{{.Translation.Get "self-kicked"}}');
@@ -1509,9 +1519,7 @@
             socket.send(JSON.stringify({
                 type: "undo",
             }));
-            socket.send(JSON.stringify({
-                type: "request-drawing",
-            }));
+            redrawCanvas()
         }
 
         document.onkeydown = KeyPress;
@@ -1556,9 +1564,7 @@
             //Since the canvas gets cleared, we request the drawing again.
             //Saving it locally would be wasteful and might slow down some
             //clients due to a lot of memory allocation.
-            socket.send(JSON.stringify({
-                type: "request-drawing",
-            }));
+            redrawCanvas()
         }, false);
 
 
