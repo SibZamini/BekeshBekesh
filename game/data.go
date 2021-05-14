@@ -268,6 +268,10 @@ func (lobby *Lobby) AppendFill(fill *FillEvent) {
 	lobby.currentDrawing = append(lobby.currentDrawing, fill)
 }
 
+func (lobby *Lobby) AppendState() {
+	lobby.currentDrawing = append(lobby.currentDrawing, SaveEvent{Type: "save"})
+}
+
 func createPlayer(name string) *Player {
 	return &Player{
 		Name:         SanitizeName(name),
@@ -397,3 +401,22 @@ func (lobby *Lobby) Synchronized(logic func()) {
 
 	logic()
 }
+
+func (lobby *Lobby) saveState() {
+	lobby.AppendState()
+}
+
+func (lobby *Lobby) undo() {
+	end := 0
+	for end = len(lobby.currentDrawing) -1;end >= 0;end-- {
+		_ , start := lobby.currentDrawing[end].(SaveEvent)
+		if start {
+			break
+		}
+	}
+	if end != -1 {
+		lobby.currentDrawing = lobby.currentDrawing[0:end]
+	}
+}
+
+

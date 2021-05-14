@@ -29,6 +29,7 @@ func initPersianTranslation() Translation {
 	translation.put("owner-change", "%s مدیر جدید")
 
 	translation.put("change-lobby-settings", "تغییر تنظیمات اتاق")
+	translation.put("undo", "واگرد")
 	translation.put("lobby-settings-changed", "تنظیمات اتاق تغییر کرد")
 	translation.put("advanced-settings", "تنظیمات پیشرفته")
 	translation.put("words-per-round", "تعداد کلمه برای هر نوبت")

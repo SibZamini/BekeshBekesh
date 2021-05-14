@@ -26,6 +26,7 @@ func initEnglishTranslation() Translation {
 	translation.put("kick-vote", "(%s/%s) players voted to kick %s.")
 	translation.put("player-kicked", "Player has been kicked.")
 	translation.put("owner-change", "%s is the new lobby owner.")
+	translation.put("undo", "undo")
 
 	translation.put("change-lobby-settings", "Change the lobby settings")
 	translation.put("lobby-settings-changed", "Lobby settings changed")

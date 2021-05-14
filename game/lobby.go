@@ -88,6 +88,10 @@ type FillEvent struct {
 	Data *Fill  `json:"data"`
 }
 
+type SaveEvent struct {
+	Type string `json:"type"`
+}
+
 // KickVote represents a players vote to kick another players. If the VoteCount
 // is as great or greater than the RequiredVoteCount, the event indicates a
 // successful kick vote. The voting is anonymous, meaning the voting player
@@ -132,6 +136,15 @@ func (lobby *Lobby) HandleEvent(raw []byte, received *GameEvent, player *Player)
 
 			//We directly forward the event, as it seems to be valid.
 			lobby.sendDataToEveryoneExceptSender(player, received)
+		}
+	} else if received.Type == "save" {
+		if lobby.canDraw(player) {
+			lobby.saveState()
+		}
+	} else if received.Type == "undo" {
+		if lobby.canDraw(player) {
+			lobby.undo()
+			lobby.sendDataToEveryoneExceptSender(player, GameEvent{Type: "drawing", Data: lobby.currentDrawing})
 		}
 	} else if received.Type == "fill" {
 		if lobby.canDraw(player) {
