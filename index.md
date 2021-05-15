@@ -1,37 +1,68 @@
-## Welcome to GitHub Pages
+<p align="center">
+<img src="https://raw.githubusercontent.com/SibZamini/bekeshbekesh/master/frontend/resources/BekeshBekeshLogo.png">
+</p>
 
-You can use the [editor on GitHub](https://github.com/SibZamini/BekeshBekesh/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Play on this [Website](https://bekeshbekesh.herokuapp.com/)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+> ممکنه سایت جواب درخواست هاتونو نده.
+> در این صورت کمی صبر کنید و دوباره تلاش کنید 
 
-### Markdown
+بـکـش بـکـش یک بازی گروهی آنلاین اوپن سورس است.
+کسی که بهتر نقاشی بکشه و نقاشی بقیه رو حدس بزنه برنده ی این بازی میشه
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+**این بازی هیچ اطلاعاتی از شما نگه نمیدارد**
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
 
-**Bold** and _Italic_ and `Code` text
+## ران و بیلد کردن پروژه
 
-[Link](url) and ![Image](src)
+با استفاده از کامند زیر پروژه را کلون کنید
+
+```shell
+git clone https://github.com/SibZamini/bekeshbekesh.git
+cd bekeshbekesh
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+برای لینوکس با کامند زیر بیلد بگیرید
+```shell
+# run `make` to see all available commands
+make build
+```
 
-### Jekyll Themes
+برای ویندوز با کامند زیر بیلد بگیرید
+```shell
+go build -o bekeshbekesh.exe .
+```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/SibZamini/BekeshBekesh/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+ران کردن با گو
+```shell
+go run .
+```
 
-### Support or Contact
+حالا فایل باینری ساخته شده را اجرا کنید
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+* پورت پیشفرض پروژه 8080 است
+
+* برای اجرای پروژه به گو نسخه `1.16` یا بالاتر نیاز دارید
+
+
+
+
+## ویژگی ها نسبت به پروژه اصلی  
+* اضافه شدن قالبیت های بیشتر
+  * قابلیت آندو کردن
+  * تغییر قلم با بیلبیلک موس
+  * حذف ریکوئست های هرز
+  * ذخیره نام کاربری بازیکن
+  * ...
+* تغییرات گرافیکی
+* فارسی سازی کامل
+
+## Credits
+
+* Main Project - [Scribble.rs](https://github.com/scribble-rs/scribble.rs/)
+* Game Background - [Skribbl.io](http://skribbl.io)
+* Name Generator - [Funny Name Generator](http://github.com/Ahmadrezadl/funny-name-generator)
+* Persian Words - [Persian HangMan Words](https://github.com/Ahmadrezadl/Persian-HangMan-Words)
