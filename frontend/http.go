@@ -5,8 +5,8 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/SibZamini/bekeshbekesh/api"
-	"github.com/SibZamini/bekeshbekesh/translations"
+	"github.com/ahmadrezadl/bekeshbekesh/api"
+	"github.com/ahmadrezadl/bekeshbekesh/translations"
 )
 
 var (

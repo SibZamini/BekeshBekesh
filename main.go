@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	NameGenerator "github.com/SibZamini/funny-name-generator"
+	NameGenerator "github.com/Ahmadrezadl/funny-name-generator"
 	"log"
 	"math/rand"
 	"net/http"
@@ -11,8 +11,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/SibZamini/bekeshbekesh/api"
-	"github.com/SibZamini/bekeshbekesh/frontend"
+	"github.com/ahmadrezadl/bekeshbekesh/api"
+	"github.com/ahmadrezadl/bekeshbekesh/frontend"
 )
 
 func main() {

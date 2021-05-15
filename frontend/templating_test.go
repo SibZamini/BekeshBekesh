@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/SibZamini/bekeshbekesh/api"
-	"github.com/SibZamini/bekeshbekesh/game"
-	"github.com/SibZamini/bekeshbekesh/translations"
+	"github.com/ahmadrezadl/bekeshbekesh/api"
+	"github.com/ahmadrezadl/bekeshbekesh/game"
+	"github.com/ahmadrezadl/bekeshbekesh/translations"
 )
 
 func Test_templateLobbyPage(t *testing.T) {

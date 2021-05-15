@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/SibZamini/bekeshbekesh/api"
-	"github.com/SibZamini/bekeshbekesh/translations"
+	"github.com/ahmadrezadl/bekeshbekesh/api"
+	"github.com/ahmadrezadl/bekeshbekesh/translations"
 	"golang.org/x/text/language"
 )
 
