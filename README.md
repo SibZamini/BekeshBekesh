@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/SibZamini/bekeshbekesh/master/frontend/resources/BekeshBekeshLogo.png">
+<img src="https://raw.githubusercontent.com/Ahmadrezadl/bekeshbekesh/master/frontend/resources/BekeshBekeshLogo.png">
 </p>
 
 Play on this [Website](https://bekeshbekesh.herokuapp.com/)
@@ -21,7 +21,7 @@ Play on this [Website](https://bekeshbekesh.herokuapp.com/)
 با استفاده از کامند زیر پروژه را کلون کنید
 
 ```shell
-git clone https://github.com/SibZamini/bekeshbekesh.git
+git clone https://github.com/Ahmadrezadl/bekeshbekesh.git
 cd bekeshbekesh
 ```
 

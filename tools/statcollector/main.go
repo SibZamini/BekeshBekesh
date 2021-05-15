@@ -18,7 +18,7 @@ type Stat struct {
 func main() {
 	duration := flag.Duration("duration", (7*24)*time.Hour, "the duration for which we'll collect stats.")
 	interval := flag.Duration("interval", 5*time.Minute, "interval in which we'll send requests.")
-	page := flag.String("page", "https://BekeshBekesh.herokuapp.com", "page on which we'll call /v1/stats")
+	page := flag.String("page", "https://scribblers-official.herokuapp.com", "page on which we'll call /v1/stats")
 	output := flag.String("output", "output.json", "output file for retrieved data")
 	flag.Parse()
 
