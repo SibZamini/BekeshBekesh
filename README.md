@@ -22,7 +22,7 @@ Play on this [Website](https://bekeshbekesh.herokuapp.com/)
 
 ```shell
 git clone https://github.com/Ahmadrezadl/bekeshbekesh.git
-cd scribble.rs
+cd bekeshbekesh
 ```
 
 برای لینوکس با کامند زیر بیلد بگیرید
@@ -36,6 +36,11 @@ make build
 go build -o bekeshbekesh.exe .
 ```
 
+ران کردن با گو
+```shell
+go run .
+```
+
 حالا فایل باینری ساخته شده را اجرا کنید
 
 * پورت پیشفرض پروژه 8080 است
@@ -47,6 +52,11 @@ go build -o bekeshbekesh.exe .
 
 ##ویژگی ها نسبت به پروژه اصلی  
 * اضافه شدن قالبیت های بیشتر
+  * قابلیت آندو کردن
+  * تغییر قلم با بیلبیلک موس
+  * حذف ریکوئست های هرز
+  * ذخیره نام کاربری بازیکن
+  * ...
 * تغییرات گرافیکی
 * فارسی سازی کامل
 

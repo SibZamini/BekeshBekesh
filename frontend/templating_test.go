@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/scribble-rs/scribble.rs/api"
-	"github.com/scribble-rs/scribble.rs/game"
-	"github.com/scribble-rs/scribble.rs/translations"
+	"github.com/ahmadrezadl/bekeshbekesh/api"
+	"github.com/ahmadrezadl/bekeshbekesh/game"
+	"github.com/ahmadrezadl/bekeshbekesh/translations"
 )
 
 func Test_templateLobbyPage(t *testing.T) {

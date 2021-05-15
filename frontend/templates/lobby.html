@@ -53,6 +53,12 @@
                             title="{{.Translation.Get "change-lobby-settings"}}">
                             <img src="{{.RootPath}}/resources/settings.svg" class="header-button-image" />
                         </button>
+                        <button onclick="undo()"
+                                class="dialog-button header-button" alt="{{.Translation.Get "undo"}}"
+                        title="{{.Translation.Get "undo"}}">
+                        <img src="{{.RootPath}}/resources/undo.png" class="header-button-image" />
+                        </button>
+
                     </div>
                 </div>
 
@@ -368,6 +374,7 @@
                 <button class="canvas-button toolbox-group" style="font-size: 2rem;" onclick="clearCanvasAndSendEvent()"
                     alt="{{.Translation.Get "clear-canvas"}}" title="{{.Translation.Get "clear-canvas"}}">🗑
                 </button>
+
             </div>
 
             <div id="chat">
@@ -722,6 +729,8 @@
         let toolButtonRubber = document.getElementById("tool-type-rubber");
         let toolButtonFill = document.getElementById("tool-type-fill");
 
+        let requestedForRedraw = false
+
         //We use the states present in UI elements, since in case of
         //hitting F5(Refresh), the browser will not reset these states to the
         //initial values defined in the HTML.
@@ -909,6 +918,16 @@
             hideKickDialog();
         }
 
+        function redrawCanvas(){
+            if(!requestedForRedraw)
+            {
+                requestedForRedraw = true
+                socket.send(JSON.stringify({
+                    type: "request-drawing",
+                }));
+            }
+        }
+
         //This automatically scrolls down the chat on arrivals of new messages
         new MutationObserver(() => messageContainer.scrollTop = messageContainer.scrollHeight)
             .observe(messageContainer, {
@@ -978,6 +997,10 @@
                     context.fillFlood(parsed.data.x * scaleDownFactor(), parsed.data.y * scaleDownFactor(), parsed.data.color);
                 } else if (parsed.type === "clear-drawing-board") {
                     clear(context);
+                }
+                else if (parsed.type === "undo") {
+                        clear(context);
+                        redrawCanvas()
                 } else if (parsed.type === "next-turn") {
                     setRoundEndTime(parsed.data.roundEndTime);
 
@@ -1016,6 +1039,7 @@
                     promptWords(parsed.data[0], parsed.data[1], parsed.data[2], parsed.data[3], parsed.data[4]);
                 } else if (parsed.type === "drawing") {
                     applyDrawData(parsed.data);
+                    requestedForRedraw = false
                 } else if (parsed.type === "kick-vote") {
                     if (parsed.data.playerId === ownID && parsed.data.voteCount >= parsed.data.requiredVoteCount) {
                         alert('{{.Translation.Get "self-kicked"}}');
@@ -1381,6 +1405,8 @@
                         drawLine(context, drawData.fromX * scaleDownFactor(),
                             drawData.fromY * scaleDownFactor(), drawData.toX * scaleDownFactor(),
                             drawData.toY * scaleDownFactor(), drawData.color, drawData.lineWidth * scaleDownFactor());
+                    } else if(drawElement.type === "save") {
+                        return
                     } else {
                         console.log("Unknown draw element type: " + drawData.type);
                     }
@@ -1445,10 +1471,16 @@
         drawingBoard.addEventListener('touchmove', onTouchMove);
 
         function onMouseDown(event) {
-            if (allowDrawing && event.buttons === 1 && localTool !== fillBucket) {
-                const clientRect = drawingBoard.getBoundingClientRect();
-                lastX = event.clientX - clientRect.left;
-                lastY = event.clientY - clientRect.top;
+            if(allowDrawing && event.buttons === 1)
+            {
+                socket.send(JSON.stringify({
+                    type: "save",
+                }));
+                if(localTool !== fillBucket) {
+                    const clientRect = drawingBoard.getBoundingClientRect();
+                    lastX = event.clientX - clientRect.left;
+                    lastY = event.clientY - clientRect.top;
+                }
             }
         }
 
@@ -1481,7 +1513,20 @@
                 }
             }
         }
+        function KeyPress(e) {
+            if (e.keyCode === 90 && e.ctrlKey){
+                undo()
+            }
+        }
 
+        function undo(){
+            socket.send(JSON.stringify({
+                type: "undo",
+            }));
+            redrawCanvas()
+        }
+
+        document.onkeydown = KeyPress;
         drawingBoard.addEventListener('mousedown', onMouseDown)
         drawingBoard.addEventListener('mousemove', onMouseMove);
         drawingBoard.addEventListener('mouseleave', onMouseMove);
@@ -1523,9 +1568,7 @@
             //Since the canvas gets cleared, we request the drawing again.
             //Saving it locally would be wasteful and might slow down some
             //clients due to a lot of memory allocation.
-            socket.send(JSON.stringify({
-                type: "request-drawing",
-            }));
+            redrawCanvas()
         }, false);
 
 

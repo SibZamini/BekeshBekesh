@@ -20,6 +20,9 @@ func initGermanTranslation() {
 	translation.put("save", "Speichern")
 	translation.put("votekick-a-player", "Stimme dafür ab, einen Spieler rauszuwerfen")
 	translation.put("time-left", "Zeit")
+	translation.put("undo", "undo")
+	translation.put("words-per-round", "words of per round")
+
 
 	translation.put("change-lobby-settings", "Lobby-Einstellungen ändern")
 	translation.put("lobby-settings-changed", "Lobby-Einstelungen verändert")

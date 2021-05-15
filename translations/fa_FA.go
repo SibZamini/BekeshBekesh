@@ -19,7 +19,7 @@ func initPersianTranslation() Translation {
 	translation.put("apply", "تایید")
 	translation.put("save", "ذخیره")
 	translation.put("username", "نام کاربری")
-	translation.put("votekick-a-player", "رای برای اخراج یک بازیکان")
+	translation.put("votekick-a-player", "رای برای اخراج یک بازیکن")
 	translation.put("time-left", "زمان باقیمانده")
 
 	translation.put("last-turn", "(آخرین نوبت: %s)")
@@ -31,6 +31,7 @@ func initPersianTranslation() Translation {
 	translation.put("owner-change", "%s مدیر جدید")
 
 	translation.put("change-lobby-settings", "تغییر تنظیمات اتاق")
+	translation.put("undo", "واگرد")
 	translation.put("lobby-settings-changed", "تنظیمات اتاق تغییر کرد")
 	translation.put("advanced-settings", "تنظیمات پیشرفته")
 	translation.put("words-per-round", "تعداد کلمه برای هر نوبت")
@@ -66,7 +67,7 @@ func initPersianTranslation() Translation {
 	translation.put("correct-guess-other-player", "%s کلمه را حدس زد")
 	translation.put("round-over", "نوبت تموم شد، کلمه ای انتخاب نشد")
 	translation.put("round-over-no-word", "نوبت تموم شد، کلمه '%s' بود")
-	translation.put("game-over-win", "تبریک! شمار برنده شدید")
+	translation.put("game-over-win", "تبریک! شما برنده شدید")
 	translation.put("game-over", "شما نفر %s م شدید با %s امتیاز.")
 
 	translation.put("change-active-color", "تغییر رنگ")

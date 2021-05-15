@@ -18,6 +18,6 @@ FROM scratch
 # For future implementation of SSL certificate support
 COPY --from=certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 # Selfcontained executable used as entrypoint
-COPY --from=builder /app/scribblers /scribblers
+COPY --from=builder /app/BekeshBekesh /BekeshBekesh
 
-ENTRYPOINT ["/scribblers"]
+ENTRYPOINT ["/BekeshBekesh"]
