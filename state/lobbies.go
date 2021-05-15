@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ahmadrezadl/bekeshbekesh/game"
+	"github.com/SibZamini/bekeshbekesh/game"
 )
 
 var (
