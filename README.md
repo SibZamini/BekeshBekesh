@@ -64,5 +64,5 @@ go run .
 
 * Main Project - [Scribble.rs](https://github.com/scribble-rs/scribble.rs/)
 * Game Background - [Skribbl.io](http://skribbl.io)
-* Name Generator - [Funny Name Generator](http://github.com/Ahmadrezadl/funny-name-generator)
-* Persian Words - [Persian HangMan Words](https://github.com/Ahmadrezadl/Persian-HangMan-Words)
+* Name Generator - [Funny Name Generator](http://github.com/SibZamini/funny-name-generator)
+* Persian Words - [Persian HangMan Words](https://github.com/SibZamini/Persian-HangMan-Words)

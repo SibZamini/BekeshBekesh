@@ -3,7 +3,7 @@ package game
 import (
 	"encoding/json"
 	"fmt"
-	NameGenerator "github.com/Ahmadrezadl/funny-name-generator"
+	NameGenerator "github.com/SibZamini/funny-name-generator"
 	"log"
 	"math"
 	"math/rand"

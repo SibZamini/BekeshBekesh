@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	NameGenerator "github.com/Ahmadrezadl/funny-name-generator"
+	NameGenerator "github.com/SibZamini/funny-name-generator"
 	"log"
 	"math/rand"
 	"net/http"
