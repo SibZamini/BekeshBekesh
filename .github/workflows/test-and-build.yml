@@ -52,13 +52,13 @@ jobs:
     - name: Build linux artifact
       shell: bash
       run: |
-        go build -o BekeshBekesh .
+        go build -o scribblers-linux-x64 .
 
     - name: Upload linux build artifact
       uses: actions/upload-artifact@v2
       with:
-        name: BekeshBekesh-linux-x64
-        path: ./BekeshBekesh-linux-x64
+        name: scribblers-linux-x64
+        path: ./scribblers-linux-x64
 
   build-macos:
     runs-on: macos-latest
@@ -74,13 +74,13 @@ jobs:
     - name: Build macos artifact
       shell: bash
       run: |
-        go build -o BekeshBekesh-macos-x64 .
+        go build -o scribblers-macos-x64 .
 
     - name: Upload macos build artifact
       uses: actions/upload-artifact@v2
       with:
-        name: BekeshBekesh-macos-x64
-        path: ./BekeshBekesh-macos-x64
+        name: scribblers-macos-x64
+        path: ./scribblers-macos-x64
 
   build-windows:
     runs-on: windows-latest
@@ -96,10 +96,10 @@ jobs:
     - name: Build windows artifact
       shell: cmd
       run: |
-        go build -o BekeshBekesh-x64.exe .
+        go build -o scribblers-x64.exe .
 
     - name: Upload windows build artifact
       uses: actions/upload-artifact@v2
       with:
-        name: BekeshBekesh-x64.exe
-        path: ./BekeshBekesh-x64.exe
+        name: scribblers-x64.exe
+        path: ./scribblers-x64.exe

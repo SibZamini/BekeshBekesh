@@ -10,5 +10,5 @@ is-go-installed:
 	which go >/dev/null 2>&1 || { echo >&2 "'go' is required.\nPlease install it."; exit 1; }
 
 build: is-go-installed ## Build binary file
-	CGO_ENABLED=0 go build -ldflags="-w -s" -o BekeshBekesh .
+	CGO_ENABLED=0 go build -ldflags="-w -s" -o scribblers .
 	printf "\033[32mBuild done!\033[0m\n"
