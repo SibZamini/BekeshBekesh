@@ -128,13 +128,13 @@ func Test_parseCustomWords(t *testing.T) {
 	}{
 		{"emtpty", "", nil, false},
 		{"spaces", "   ", nil, false},
-		{"spaces with comma in middle", "  , ", nil, true},
+		{"spaces with comma in middle", "  - ", nil, true},
 		{"single word", "hello", []string{"hello"}, false},
 		{"single word upper to lower", "HELLO", []string{"hello"}, false},
 		{"single word with spaces around", "   hello ", []string{"hello"}, false},
 		{"two words", "hello,world", []string{"hello", "world"}, false},
-		{"two words with spaces around", " hello , world ", []string{"hello", "world"}, false},
-		{"sentence and word", "What a great day, hello ", []string{"what a great day", "hello"}, false},
+		{"two words with spaces around", " hello - world ", []string{"hello", "world"}, false},
+		{"sentence and word", "What a great day- hello ", []string{"what a great day", "hello"}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

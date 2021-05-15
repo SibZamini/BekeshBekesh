@@ -3,7 +3,7 @@
 SHELL=bash
 
 help: ## Display usage
-	printf "\033[96mScribble.rs\033[0m\n\n"
+	printf "\033[96mBekeshBekesh\033[0m\n\n"
 	grep -E '^[0-9a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 is-go-installed:
