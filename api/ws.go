@@ -11,7 +11,7 @@ import (
 
 	"github.com/gorilla/websocket"
 
-	"github.com/ahmadrezadl/bekeshbekesh/game"
+	"github.com/SibZamini/bekeshbekesh/game"
 )
 
 var upgrader = websocket.Upgrader{

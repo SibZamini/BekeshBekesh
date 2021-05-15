@@ -132,7 +132,7 @@ func Test_parseCustomWords(t *testing.T) {
 		{"single word", "hello", []string{"hello"}, false},
 		{"single word upper to lower", "HELLO", []string{"hello"}, false},
 		{"single word with spaces around", "   hello ", []string{"hello"}, false},
-		{"two words", "hello,world", []string{"hello", "world"}, false},
+		{"two words", "hello-world", []string{"hello", "world"}, false},
 		{"two words with spaces around", " hello - world ", []string{"hello", "world"}, false},
 		{"sentence and word", "What a great day- hello ", []string{"what a great day", "hello"}, false},
 	}

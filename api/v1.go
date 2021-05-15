@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/ahmadrezadl/bekeshbekesh/game"
-	"github.com/ahmadrezadl/bekeshbekesh/state"
+	"github.com/SibZamini/bekeshbekesh/game"
+	"github.com/SibZamini/bekeshbekesh/state"
 )
 
 //This file contains the API methods for the public API

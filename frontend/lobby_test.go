@@ -3,8 +3,8 @@ package frontend
 import (
 	"testing"
 
-	"github.com/ahmadrezadl/bekeshbekesh/api"
-	"github.com/ahmadrezadl/bekeshbekesh/game"
+	"github.com/SibZamini/bekeshbekesh/api"
+	"github.com/SibZamini/bekeshbekesh/game"
 )
 
 func TestCreateLobby(t *testing.T) {
