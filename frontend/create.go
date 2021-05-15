@@ -3,10 +3,10 @@ package frontend
 import (
 	"net/http"
 
-	"github.com/ahmadrezadl/bekeshbekesh/api"
-	"github.com/ahmadrezadl/bekeshbekesh/game"
-	"github.com/ahmadrezadl/bekeshbekesh/state"
-	"github.com/ahmadrezadl/bekeshbekesh/translations"
+	"github.com/SibZamini/bekeshbekesh/api"
+	"github.com/SibZamini/bekeshbekesh/game"
+	"github.com/SibZamini/bekeshbekesh/state"
+	"github.com/SibZamini/bekeshbekesh/translations"
 )
 
 //This file contains the API for the official web client.

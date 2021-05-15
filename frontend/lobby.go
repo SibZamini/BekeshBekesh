@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/ahmadrezadl/bekeshbekesh/api"
-	"github.com/ahmadrezadl/bekeshbekesh/translations"
+	"github.com/SibZamini/bekeshbekesh/api"
+	"github.com/SibZamini/bekeshbekesh/translations"
 	"golang.org/x/text/language"
 )
 
@@ -77,6 +77,8 @@ func ssrEnterLobby(w http.ResponseWriter, r *http.Request) {
 					name = username
 				}
 			}
+
+
 
 			newPlayer := lobby.JoinPlayer(name)
 			// Use the players generated usersession and pass it as a cookie.

@@ -11,8 +11,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/ahmadrezadl/bekeshbekesh/api"
-	"github.com/ahmadrezadl/bekeshbekesh/frontend"
+	"github.com/SibZamini/bekeshbekesh/api"
+	"github.com/SibZamini/bekeshbekesh/frontend"
 )
 
 func main() {
