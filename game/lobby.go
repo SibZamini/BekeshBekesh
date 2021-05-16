@@ -950,11 +950,13 @@ func (lobby *Lobby) OnPlayerConnectUnsynchronized(player *Player) {
 }
 
 func (lobby *Lobby) OnPlayerDisconnect(player *Player) {
+	if lobby.drawer == player{
+		advanceLobby(lobby)
+	}
 	//We want to avoid calling the handler twice.
 	if player.ws == nil {
 		return
 	}
-
 	disconnectTime := time.Now()
 
 	//It is important to properly disconnect the player before aqcuiring the mutex
