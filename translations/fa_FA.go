@@ -62,7 +62,7 @@ func initPersianTranslation() Translation {
 	//This one doesn't use %s, since we want to make one part bold.
 	translation.put("is-choosing-word", "در حال انتخاب کلمه است")
 
-	translation.put("close-guess", "کلمه '%s' خیلی نزدی بود")
+	translation.put("close-guess", "کلمه '%s' خیلی نزدیک بود")
 	translation.put("correct-guess", "شما کلمه را حدس زدید.")
 	translation.put("correct-guess-other-player", "%s کلمه را حدس زد")
 	translation.put("round-over", "نوبت تموم شد، کلمه ای انتخاب نشد")
