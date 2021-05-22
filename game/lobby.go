@@ -140,11 +140,12 @@ func (lobby *Lobby) HandleEvent(raw []byte, received *GameEvent, player *Player)
 	} else if received.Type == "save" {
 		if lobby.canDraw(player) {
 			lobby.saveState()
+			lobby.sendDataToEveryoneExceptSender(player,GameEvent{Type:"save"})
 		}
 	} else if received.Type == "undo" {
 		if lobby.canDraw(player) {
 			lobby.undo()
-			lobby.sendDataToEveryoneExceptSender(player, GameEvent{Type: "drawing", Data: lobby.currentDrawing})
+			lobby.sendDataToEveryoneExceptSender(player, GameEvent{Type: "undo"})
 		}
 	} else if received.Type == "fill" {
 		if lobby.canDraw(player) {

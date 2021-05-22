@@ -391,7 +391,8 @@
 
     <script type="text/javascript" src="{{.RootPath}}/resources/floodfill.js"></script>
     <script type="text/javascript">
-    
+        var list = []
+
         String.prototype.format = function() {
             return [...arguments].reduce((p,c) => p.replace(/%s/,c), this);
         };
@@ -919,13 +920,18 @@
         }
 
         function redrawCanvas(){
-            if(!requestedForRedraw)
-            {
-                requestedForRedraw = true
-                socket.send(JSON.stringify({
-                    type: "request-drawing",
-                }));
-            }
+            clear(context)
+            list.forEach(item => {
+                if(item.type === "line")
+                {
+                    drawLine(context,item.x1,item.y1,item.x2,item.y2,item.color,item.lineWidth,false)
+                }
+                else if(item.type === "fill")
+                {
+                    console.log(item)
+                    context.fillFlood(item.data.x * scaleDownFactor(), item.data.y * scaleDownFactor(), item.data.color);
+                }
+            });
         }
 
         //This automatically scrolls down the chat on arrivals of new messages
@@ -942,6 +948,21 @@
         let roundEndTime = 0;
         let gameState = "unstarted";
         let votekickEnabled;
+
+        function undoList() {
+            while(true) {
+                if(list.length === 0)
+                    break;
+                popped = list.pop()
+                if(popped.type==="save")
+                    break;
+            }
+            redrawCanvas()
+        }
+
+        function clearList() {
+            while(list.length !== 0) list.pop()
+        }
 
         function registerMessageHandler(targetSocket) {
             targetSocket.onmessage = event => {
@@ -992,15 +1013,18 @@
                 } else if (parsed.type === "non-guessing-player-message") {
                     appendMessage("non-guessing-player-message", parsed.data.author, parsed.data.content);
                 } else if (parsed.type === "line") {
-                    drawLine(context, parsed.data.fromX * scaleDownFactor(), parsed.data.fromY * scaleDownFactor(), parsed.data.toX * scaleDownFactor(), parsed.data.toY * scaleDownFactor(), parsed.data.color, parsed.data.lineWidth * scaleDownFactor());
+                    drawLine(context, parsed.data.fromX * scaleDownFactor(), parsed.data.fromY * scaleDownFactor(), parsed.data.toX * scaleDownFactor(), parsed.data.toY * scaleDownFactor(), parsed.data.color, parsed.data.lineWidth * scaleDownFactor(),true);
+                } else if(parsed.type ==="save"){
+                    list.push({type:"save"})
                 } else if (parsed.type === "fill") {
+                    list.push(parsed)
                     context.fillFlood(parsed.data.x * scaleDownFactor(), parsed.data.y * scaleDownFactor(), parsed.data.color);
                 } else if (parsed.type === "clear-drawing-board") {
                     clear(context);
+                    clearList();
                 }
                 else if (parsed.type === "undo") {
-                        clear(context);
-                        redrawCanvas()
+                    undoList()
                 } else if (parsed.type === "next-turn") {
                     setRoundEndTime(parsed.data.roundEndTime);
 
@@ -1017,7 +1041,7 @@
                     playWav('{{.RootPath}}/resources/end-turn.wav');
 
                     clear(context);
-
+                    clearList();
                     gameState = "ongoing";
                     round = parsed.data.round;
                     updateRoundsDisplay();
@@ -1397,13 +1421,14 @@
                 .forEach(drawElement => {
                     let drawData = drawElement.data;
                     if (drawElement.type === "fill") {
+                        list.push(drawElement)
                         context.fillFlood(drawData.x * scaleDownFactor(), drawData.y * scaleDownFactor(), drawData.color);
                     } else if (drawElement.type === "line") {
                         drawLine(context, drawData.fromX * scaleDownFactor(),
                             drawData.fromY * scaleDownFactor(), drawData.toX * scaleDownFactor(),
-                            drawData.toY * scaleDownFactor(), drawData.color, drawData.lineWidth * scaleDownFactor());
+                            drawData.toY * scaleDownFactor(), drawData.color, drawData.lineWidth * scaleDownFactor(),true);
                     } else if(drawElement.type === "save") {
-                        return
+                        list.push(drawElement);
                     } else {
                         console.log("Unknown draw element type: " + drawData.type);
                     }
@@ -1473,6 +1498,7 @@
                 socket.send(JSON.stringify({
                     type: "save",
                 }));
+                list.push({type:"save"});
                 if(localTool !== fillBucket) {
                     const clientRect = drawingBoard.getBoundingClientRect();
                     lastX = event.clientX - clientRect.left;
@@ -1520,7 +1546,7 @@
             socket.send(JSON.stringify({
                 type: "undo",
             }));
-            redrawCanvas()
+            undoList()
         }
 
         document.onkeydown = KeyPress;
@@ -1584,6 +1610,7 @@
                         color: color
                     },
                 };
+                list.push(fillInstruction);
                 socket.send(JSON.stringify(fillInstruction));
             }
         }
@@ -1593,7 +1620,7 @@
                 color = rubberColor;
             }
 
-            drawLine(context, x1, y1, x2, y2, color, lineWidth);
+            drawLine(context, x1, y1, x2, y2, color, lineWidth,true);
 
             let drawInstruction = {
                 type: "line",
@@ -1609,7 +1636,19 @@
             socket.send(JSON.stringify(drawInstruction));
         }
 
-        function drawLine(context, x1, y1, x2, y2, color, lineWidth) {
+
+        function drawLine(context, x1, y1, x2, y2, color, lineWidth, cache) {
+            if(cache) {
+                list.push({
+                    "type": "line",
+                    "x1": x1,
+                    "y1": y1,
+                    "x2": x2,
+                    "y2": y2,
+                    "color": color,
+                    "lineWidth": lineWidth
+                })
+            }
             // the coordinates must be whole numbers to improve performance.
             // also, decimals as coordinates is not making sense.
             x1 = Math.floor(x1);
