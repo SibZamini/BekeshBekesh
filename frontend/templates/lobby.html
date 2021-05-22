@@ -921,15 +921,16 @@
 
         function redrawCanvas(){
             clear(context)
-            list.forEach(item => {
-                if(item.type === "line")
+            list.forEach(drawData => {
+                console.log(drawData);
+                if(drawData.type === "line")
                 {
-                    drawLine(context,item.x1,item.y1,item.x2,item.y2,item.color,item.lineWidth,false)
+                    drawLine(context, drawData.data.fromX * scaleDownFactor(), drawData.data.fromY * scaleDownFactor(), drawData.data.toX * scaleDownFactor(), drawData.data.toY * scaleDownFactor(), drawData.data.color, drawData.data.lineWidth * scaleDownFactor());
+
                 }
-                else if(item.type === "fill")
+                else if(drawData.type === "fill")
                 {
-                    console.log(item)
-                    context.fillFlood(item.data.x * scaleDownFactor(), item.data.y * scaleDownFactor(), item.data.color);
+                    context.fillFlood(drawData.data.x * scaleDownFactor(), drawData.data.y * scaleDownFactor(), drawData.data.color);
                 }
             });
         }
@@ -1013,7 +1014,8 @@
                 } else if (parsed.type === "non-guessing-player-message") {
                     appendMessage("non-guessing-player-message", parsed.data.author, parsed.data.content);
                 } else if (parsed.type === "line") {
-                    drawLine(context, parsed.data.fromX * scaleDownFactor(), parsed.data.fromY * scaleDownFactor(), parsed.data.toX * scaleDownFactor(), parsed.data.toY * scaleDownFactor(), parsed.data.color, parsed.data.lineWidth * scaleDownFactor(),true);
+                    drawLine(context, parsed.data.fromX * scaleDownFactor(), parsed.data.fromY * scaleDownFactor(), parsed.data.toX * scaleDownFactor(), parsed.data.toY * scaleDownFactor(), parsed.data.color, parsed.data.lineWidth * scaleDownFactor());
+                    list.push(parsed);
                 } else if(parsed.type ==="save"){
                     list.push({type:"save"})
                 } else if (parsed.type === "fill") {
@@ -1426,7 +1428,8 @@
                     } else if (drawElement.type === "line") {
                         drawLine(context, drawData.fromX * scaleDownFactor(),
                             drawData.fromY * scaleDownFactor(), drawData.toX * scaleDownFactor(),
-                            drawData.toY * scaleDownFactor(), drawData.color, drawData.lineWidth * scaleDownFactor(),true);
+                            drawData.toY * scaleDownFactor(), drawData.color, drawData.lineWidth * scaleDownFactor());
+                        list.push(drawElement);
                     } else if(drawElement.type === "save") {
                         list.push(drawElement);
                     } else {
@@ -1620,7 +1623,7 @@
                 color = rubberColor;
             }
 
-            drawLine(context, x1, y1, x2, y2, color, lineWidth,true);
+            drawLine(context, x1, y1, x2, y2, color, lineWidth);
 
             let drawInstruction = {
                 type: "line",
@@ -1633,22 +1636,13 @@
                     lineWidth: scaelUpAndPrepareFloatForServer(lineWidth),
                 }
             };
+
+            list.push(drawInstruction);
             socket.send(JSON.stringify(drawInstruction));
         }
 
 
-        function drawLine(context, x1, y1, x2, y2, color, lineWidth, cache) {
-            if(cache) {
-                list.push({
-                    "type": "line",
-                    "x1": x1,
-                    "y1": y1,
-                    "x2": x2,
-                    "y2": y2,
-                    "color": color,
-                    "lineWidth": lineWidth
-                })
-            }
+        function drawLine(context, x1, y1, x2, y2, color, lineWidth) {
             // the coordinates must be whole numbers to improve performance.
             // also, decimals as coordinates is not making sense.
             x1 = Math.floor(x1);

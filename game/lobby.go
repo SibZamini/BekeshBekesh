@@ -47,8 +47,8 @@ var (
 )
 
 const (
-	DrawingBoardBaseWidth  = 1600
-	DrawingBoardBaseHeight = 900
+	DrawingBoardBaseWidth  = 1280
+	DrawingBoardBaseHeight = 720
 	MinBrushSize           = 8
 	MaxBrushSize           = 32
 
