@@ -37,7 +37,7 @@ func createDefaultLobbyCreatePageData() *LobbyCreatePageData {
 		CustomWordsChance: "50",
 		ClientsPerIPLimit: "1",
 		EnableVotekick:    "true",
-		Language:          "کلمات فارسی",
+		Language:          "words-fa",
 		WordsPerRound:     "3",
 	}
 }

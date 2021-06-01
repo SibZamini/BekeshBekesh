@@ -46,7 +46,7 @@
     cursor: pointer;
     padding: 1rem;
     text-align: center;
-    font-family: 'BTitr';
+    font-family: BTitr;
 }
 
 .tab-button:checked + .tab-label {
@@ -97,6 +97,10 @@
 
 #refresh-button {
     margin-bottom: 0.5rem;
+}
+
+button{
+    font-family: yekan, serif;
 }
 
 #lobby-table {

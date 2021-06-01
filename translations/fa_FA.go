@@ -35,7 +35,7 @@ func initPersianTranslation() Translation {
 	translation.put("lobby-settings-changed", "تنظیمات اتاق تغییر کرد")
 	translation.put("advanced-settings", "تنظیمات پیشرفته")
 	translation.put("words-per-round", "تعداد کلمه برای هر نوبت")
-	translation.put("word-language", "زبان کلمات")
+	translation.put("word-language", "بسته کلمات")
 	translation.put("game-host", "مدیر")
 	translation.put("drawing-time-setting", "زمان هر نقاشی")
 	translation.put("rounds-setting", "تعداد نوبت ها")

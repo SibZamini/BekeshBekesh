@@ -28,7 +28,7 @@ func ParseLanguage(value string) (string, error) {
 		}
 	}
 
-	return "", errors.New("the given language doesn't match any supported language")
+	return "", errors.New("بسته کلمات مورد نظر یافت نشد")
 }
 
 func ParseDrawingTime(value string) (int, error) {
