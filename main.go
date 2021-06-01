@@ -40,7 +40,7 @@ func main() {
 	}
 
 	if portHTTP == 0 {
-		portHTTP = 8080
+		portHTTP = 2121
 		log.Printf("Listening on default port %d\n", portHTTP)
 	}
 

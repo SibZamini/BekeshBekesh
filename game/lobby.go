@@ -36,13 +36,11 @@ var (
 		MaxWordsPerRound:     5,
 	}
 	SupportedLanguages = map[string]string{
-		"فارسی": "فارسی",
-		"english_gb": "English (GB)",
-		"english":    "English (US)",
-		"italian":    "Italian",
-		"german":     "German",
-		"french":     "French",
-		"dutch":      "Dutch",
+		"words-fa": "کلمات فارسی",
+		"words-en": "کلمات انگلیسی",
+		"famous-fa": "شخصیت های معروف ایرانی",
+		"friends":    "سریال Friends (انگلیسی)",
+		"dota2":    "بازی Dota2 (انگلیسی)",
 	}
 )
 

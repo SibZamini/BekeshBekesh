@@ -13,11 +13,11 @@ import (
 var (
 	wordListCache       = make(map[string][]string)
 	languageIdentifiers = map[string]string{
-		"کلمات فارسی": "words-fa",
-		"کلمات انگلیسی":    "words-en",
-		"شخصیت های معروف ایرانی (فارسی)": "famous-fa",
-		"سریال Friends (انگلیسی)": "friends-en",
-		"بازی Dota2 (انگلیسی)": "dota-en",
+		"words-fa": "words-fa",
+		"words-en":    "words-en",
+		"famous-fa": "famous-fa",
+		"friends": "friends-en",
+		"dota2": "dota-en",
 	}
 
 	//go:embed words/*
