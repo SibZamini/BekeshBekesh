@@ -17,6 +17,7 @@
 .input-item {
     width: inherit;
     min-width: 300px;
+    font-family: yekan, serif;
 }
 
 .error-list {
@@ -160,4 +161,15 @@ tr:hover {
 
 tr[selected="true"] {
     background-color: #6464de;
+}
+
+
+#sibzaminigames {
+    position: fixed;
+    bottom: 20px;
+    left: -5px;
+    z-index: 99;
+    outline: none;
+    cursor: pointer;
+    padding: 15px;
 }
