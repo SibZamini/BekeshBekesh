@@ -156,24 +156,28 @@ func Test_recalculateRanks(t *testing.T) {
 }
 
 func Test_calculateGuesserScore(t *testing.T) {
-	lastScore := calculateGuesserScore(0, 0, 115, 120)
-	if lastScore >= maxBaseScore {
-		t.Errorf("Score should have declined, but was bigger than or "+
-			"equal to the baseScore. (LastScore: %d; BaseScore: %d)", lastScore, maxBaseScore)
+	// Test with a 5-character word, 115 seconds left out of 120 total
+	lastScore := calculateGuesserScore(5, 115, 120)
+	expectedScore := 10*5 + 100*115/120 // 50 + 95.83... = 145
+	if lastScore != expectedScore {
+		t.Errorf("Expected score %d for 5-char word with 115s left out of 120s, but got %d", expectedScore, lastScore)
 	}
 
-	lastDecline := -1
+	// Test that score decreases as time decreases
+	lastScore = 145
 	for secondsLeft := 105; secondsLeft >= 5; secondsLeft -= 10 {
-		newScore := calculateGuesserScore(0, 0, secondsLeft, 120)
+		newScore := calculateGuesserScore(5, secondsLeft, 120)
 		if newScore > lastScore {
 			t.Errorf("Score with more time taken should be lower. (LastScore: %d; NewScore: %d)", lastScore, newScore)
 		}
-		newDecline := lastScore - newScore
-		if lastDecline != -1 && newDecline > lastDecline {
-			t.Errorf("Decline should get lower with time taken. (LastDecline: %d; NewDecline: %d)\n", lastDecline, newDecline)
-		}
 		lastScore = newScore
-		lastDecline = newDecline
+	}
+	
+	// Test with 0 characters (edge case)
+	zeroScore := calculateGuesserScore(0, 60, 120)
+	expectedZeroScore := 0 + 100*60/120 // 0 + 50 = 50
+	if zeroScore != expectedZeroScore {
+		t.Errorf("Expected score %d for 0-char word with 60s left out of 120s, but got %d", expectedZeroScore, zeroScore)
 	}
 }
 

@@ -50,8 +50,13 @@ const (
 	MinBrushSize           = 8
 	MaxBrushSize           = 32
 
-	maxBaseScore      = 200
-	maxHintBonusScore = 60
+	// New scoring constants
+	// Each non-space character gives 10 points
+	scorePerCharacter = 10
+	// Time bonus: 100 points for 100% time remaining, scales down linearly
+	scorePerTimePercentage = 100
+	// Base bonus for drawer regardless of performance
+	drawerBaseBonus = 10
 )
 
 // SettingBounds defines the lower and upper bounds for the user-specified
@@ -260,7 +265,16 @@ func handleMessage(message string, sender *Player, lobby *Lobby) {
 		if normSearched == normInput {
 			secondsLeft := int(lobby.RoundEndTime/1000 - time.Now().UTC().UnixNano()/1000000000)
 
-			sender.LastScore = calculateGuesserScore(lobby.hintCount, lobby.hintsLeft, secondsLeft, lobby.DrawingTime)
+			// Calculate score based on word length (excluding spaces) and time left
+			wordLength := utf8.RuneCountInString(lobby.CurrentWord)
+			// Count only non-space characters for scoring
+			effectiveWordLength := 0
+			for _, char := range lobby.CurrentWord {
+				if char != ' ' {
+					effectiveWordLength++
+				}
+			}
+			sender.LastScore = calculateGuesserScore(effectiveWordLength, secondsLeft, lobby.DrawingTime)
 			sender.Score += sender.LastScore
 
 			lobby.scoreEarnedByGuessers += sender.LastScore
@@ -288,20 +302,28 @@ func handleMessage(message string, sender *Player, lobby *Lobby) {
 	}
 }
 
-func calculateGuesserScore(hintCount, hintsLeft, secondsLeft, drawingTime int) int {
-	//The base score is based on the general time taken.
-	//The formula here represents an exponential decline based on the time taken.
-	//This way fast players get more points, however not a lot more.
-	//The bonus gained by guessing before hints are shown is therefore still somewhat relevant.
-	declineFactor := 1.0 / float64(drawingTime)
-	baseScore := int(maxBaseScore * math.Pow(1.0-declineFactor, float64(drawingTime-secondsLeft)))
-
-	//Every hint not shown, e.g. not needed, will give the player bonus points.
-	if hintCount < 1 {
-		return baseScore
+func calculateGuesserScore(wordLength, secondsLeft, drawingTime int) int {
+	// New scoring formula: 10 * characters + 100 * time left percentage
+	// Calculate time left percentage (0.0 to 1.0)
+	timeLeftPercentage := float64(secondsLeft) / float64(drawingTime)
+	if timeLeftPercentage > 1.0 {
+		timeLeftPercentage = 1.0
 	}
-
-	return baseScore + hintsLeft*(maxHintBonusScore/hintCount)
+	if timeLeftPercentage < 0.0 {
+		timeLeftPercentage = 0.0
+	}
+	
+	// Calculate score based on word length (excluding spaces) and time left
+	// Exclude spaces from character count for scoring
+	effectiveWordLength := wordLength
+	if effectiveWordLength < 0 {
+		effectiveWordLength = 0
+	}
+	
+	characterScore := scorePerCharacter * effectiveWordLength
+	timeScore := int(float64(scorePerTimePercentage) * timeLeftPercentage)
+	
+	return characterScore + timeScore
 }
 
 func (lobby *Lobby) isAnyoneStillGuessing() bool {
@@ -520,19 +542,40 @@ func advanceLobby(lobby *Lobby) {
 	drawer := lobby.drawer
 	if drawer != nil && lobby.scoreEarnedByGuessers > 0 {
 
-		//Average score, but minus one player, since the own score is 0 and doesn't count.
-		playerCount := lobby.GetConnectedPlayerCount()
-		//If the drawer isn't connected though, we mustn't subtract from the count.
-		if drawer.Connected {
-			playerCount--
+		// New drawer scoring formula: 10 * characters (excluding spaces) + 10 + 100 * percentage of players guessed
+		// Example: 6-char word, 3/4 players guessed = 60 + 10 + 75 = 145 points
+		// Count only non-space characters for scoring
+		effectiveWordLength := 0
+		for _, char := range lobby.CurrentWord {
+			if char != ' ' {
+				effectiveWordLength++
+			}
 		}
-
-		var averageScore int
-		if playerCount > 0 {
-			averageScore = lobby.scoreEarnedByGuessers / playerCount
+		
+		// Calculate how many players guessed correctly
+		guessedPlayers := 0
+		totalPlayers := 0
+		for _, player := range lobby.players {
+			if player.Connected && player != drawer {
+				totalPlayers++
+				if player.State == Standby {
+					guessedPlayers++
+				}
+			}
 		}
-
-		drawer.LastScore = averageScore
+		
+		// Calculate percentage of players who guessed (excluding drawer)
+		var guessPercentage float64
+		if totalPlayers > 0 {
+			guessPercentage = float64(guessedPlayers) / float64(totalPlayers)
+		}
+		
+		// Calculate drawer score
+		characterScore := scorePerCharacter * effectiveWordLength
+		guessBonus := int(float64(scorePerTimePercentage) * guessPercentage)
+		drawerScore := characterScore + drawerBaseBonus + guessBonus
+		
+		drawer.LastScore = drawerScore
 		drawer.Score += drawer.LastScore
 	}
 
