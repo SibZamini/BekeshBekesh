@@ -265,8 +265,6 @@ func handleMessage(message string, sender *Player, lobby *Lobby) {
 		if normSearched == normInput {
 			secondsLeft := int(lobby.RoundEndTime/1000 - time.Now().UTC().UnixNano()/1000000000)
 
-			// Calculate score based on word length (excluding spaces) and time left
-			wordLength := utf8.RuneCountInString(lobby.CurrentWord)
 			// Count only non-space characters for scoring
 			effectiveWordLength := 0
 			for _, char := range lobby.CurrentWord {
