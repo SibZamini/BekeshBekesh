@@ -36,10 +36,15 @@
     justify-items: center;
     align-self: center;
     text-align: center;
+    background-color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin: 0 1rem;
 }
 
 .guess-letter-underline {
-    border-bottom: 0.3rem black solid;
+    border-bottom: 0.3rem solid #333;
 }
 
 .guess-letter {
@@ -47,6 +52,7 @@
     font-weight: bold;
     font-size: 1.5rem;
     margin-left: 3px;
+    color: #333;
 }
 
 .guess-letter + .guess-letter {
