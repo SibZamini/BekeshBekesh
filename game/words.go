@@ -18,6 +18,7 @@ var (
 		"famous-fa": "famous-fa",
 		"friends": "friends-en",
 		"dota2": "dota-en",
+		"words-fa-hard": "words-fa-hard",
 	}
 
 	//go:embed words/*
