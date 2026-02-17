@@ -49,7 +49,7 @@ func SetupRoutes() {
 		http.StripPrefix(api.RootPath,
 			http.FileServer(http.FS(frontendResourcesFS))))
 	http.HandleFunc(api.RootPath+"/", homePage)
-	http.HandleFunc(api.RootPath+"/ssrEnterLobby", ssrEnterLobby)
+	http.HandleFunc(api.RootPath+"/lobby", ssrEnterLobby)
 	http.HandleFunc(api.RootPath+"/ssrCreateLobby", ssrCreateLobby)
 }
 

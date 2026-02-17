@@ -15,19 +15,16 @@
     <div class="content-wrapper">
     <noscript><span class="noscript">{{.Translation.Get "requires-js"}}</span></noscript>
 
-    <h2><img style="margin-top: 8px" src="/resources/BekeshBekeshLogo.png" alt="بِکِش بِکِش"></h2>
-
-
     <div class="tab-header">
         <label for="create-lobby-tab-button">
             <input id="create-lobby-tab-button" class="custom-check-or-radio tab-button"
                 type="radio" onclick="openTab('create-lobby')" name="tab" checked>
-            <div class="tab-label">{{.Translation.Get "create-lobby"}}</div>
+            <div class="tab-label">🏠 {{.Translation.Get "create-lobby"}}</div>
         </label>
         <label for="join-lobby-tab-button">
             <input id="join-lobby-tab-button" class="custom-check-or-radio tab-button"
                 type="radio" onclick="openTab('join-lobby')" name="tab">
-            <div class="tab-label">{{.Translation.Get "join-lobby"}}</div>
+            <div class="tab-label">🔍 {{.Translation.Get "join-lobby"}}</div>
         </label>
     </div>
 
@@ -47,55 +44,59 @@
                     </div>
 
                 {{end}}
-                <form id="lobby-create" class="input-container" action="{{.RootPath}}/ssrCreateLobby" method="POST" onsubmit="return saveAndCreate()">
-                    <b>{{.Translation.Get "username"}}</b>
+                <form id="lobby-create" class="create-room-form" action="{{.RootPath}}/ssrCreateLobby" method="POST" onsubmit="return saveAndCreate()">
+                    <label class="form-label">👤 {{.Translation.Get "username"}}</label>
                     <input class="input-item" name="username" id="username-id"/>
 
-                    <b>{{.Translation.Get "word-language"}}</b>
-                    <select class="input-item" style="font-family: yekan,serif" name="language" placeholder="Choose your language">
+                    <label class="form-label">📚 {{.Translation.Get "word-language"}}</label>
+                    <select class="input-item" style="font-family: yekan,serif" name="language">
                         {{$language := .Language}}
                         {{range $k, $v := .Languages}}
                             <option value="{{$k}}" {{if eq $k $language}}selected="selected"{{end}}>{{$v}}</option>
                         {{end}}
                     </select>
-                    <b>{{.Translation.Get "drawing-time-setting"}}</b>
+
+                    <label class="form-label">⏱️ {{.Translation.Get "drawing-time-setting"}}</label>
                     <input class="input-item" type="number" name="drawing_time" min="{{.MinDrawingTime}}"
                     max="{{.MaxDrawingTime}}" value="{{.DrawingTime}}"/>
-                    <b>{{.Translation.Get "rounds-setting"}}</b>
+
+                    <label class="form-label">🔄 {{.Translation.Get "rounds-setting"}}</label>
                     <input class="input-item" type="number" name="rounds" min="{{.MinRounds}}" max="{{.MaxRounds}}"
                     value="{{.Rounds}}"/>
-                    <b>{{.Translation.Get "max-players-setting"}}</b>
+
+                    <label class="form-label">👥 {{.Translation.Get "max-players-setting"}}</label>
                     <input class="input-item" type="number" name="max_players" min="{{.MinMaxPlayers}}"
                     max="{{.MaxMaxPlayers}}" value="{{.MaxPlayers}}"/>
-                    <b>{{.Translation.Get "public-lobby-setting"}}</b>
+
+                    <label class="form-label">🌐 {{.Translation.Get "public-lobby-setting"}}</label>
                     <input class="input-item" type="checkbox" name="public" value="true"
                         {{if eq .Public "true"}}checked{{end}}/>
-                    <b>{{.Translation.Get "custom-words"}}</b>
-                    <textarea class="input-item" name="custom_words"
-                    placeholder="{{.Translation.Get "custom-words-info"}}">{{.CustomWords}}</textarea>
-                    <b>{{.Translation.Get "custom-words-chance-setting"}}</b>
-                    <div style="display: flex;">
-                        0%
-                        <input style="flex: 1;" type="range" name="custom_words_chance" min="1" max="100" value="{{.CustomWordsChance}}">
-                        100%
-                    </div>
-                    <details class="advanced-section">
-                        <summary>{{.Translation.Get "advanced-settings"}}</summary>
-                        <div class="input-container">
-                            <b>{{.Translation.Get "words-per-round"}}</b>
-                            <input class="input-item" type="number" name="words-per-round" min="{{.MinWordsPerRound}}"
-                                   max="{{.MaxWordsPerRound}}" value="{{.WordsPerRound}}"/>
 
-                            <b>{{.Translation.Get "players-per-ip-limit-setting"}}</b>
-                            <input class="input-item" type="number" name="clients_per_ip_limit" min="{{.MinClientsPerIPLimit}}"
-                            max="{{.MaxClientsPerIPLimit}}" value="{{.ClientsPerIPLimit}}"/>
-                            <b>{{.Translation.Get "enable-votekick-setting"}}</b>
-                            <input class="input-item" type="checkbox" name="enable_votekick" value="true"
-                            {{if eq .EnableVotekick "true"}}checked{{end}}/>
-                        </div>
-                    </details>
-                    <button id="create-lobby-submit" type="submit" form="lobby-create" style="grid-column-start: 1; grid-column-end: 3;">
-                            {{.Translation.Get "create-lobby"}}
+                    <label class="form-label">📝 {{.Translation.Get "words-per-round"}}</label>
+                    <input class="input-item" type="number" name="words-per-round" min="{{.MinWordsPerRound}}"
+                           max="{{.MaxWordsPerRound}}" value="{{.WordsPerRound}}"/>
+
+                    <label class="form-label">📡 {{.Translation.Get "players-per-ip-limit-setting"}}</label>
+                    <input class="input-item" type="number" name="clients_per_ip_limit" min="{{.MinClientsPerIPLimit}}"
+                    max="{{.MaxClientsPerIPLimit}}" value="{{.ClientsPerIPLimit}}"/>
+
+                    <label class="form-label">🗳️ {{.Translation.Get "enable-votekick-setting"}}</label>
+                    <input class="input-item" type="checkbox" name="enable_votekick" value="true"
+                    {{if eq .EnableVotekick "true"}}checked{{end}}/>
+
+                    <label class="form-label form-label-row-start">✏️ {{.Translation.Get "custom-words"}}</label>
+                    <textarea class="input-item form-textarea form-field-wide" name="custom_words"
+                    placeholder="{{.Translation.Get "custom-words-info"}}">{{.CustomWords}}</textarea>
+
+                    <label class="form-label form-label-row-start">🎲 {{.Translation.Get "custom-words-chance-setting"}}</label>
+                    <div class="range-wrapper form-field-wide">
+                        <span>0%</span>
+                        <input type="range" name="custom_words_chance" min="1" max="100" value="{{.CustomWordsChance}}">
+                        <span>100%</span>
+                    </div>
+
+                    <button id="create-lobby-submit" type="submit" form="lobby-create" class="create-room-btn">
+                        🎮 {{.Translation.Get "create-lobby"}}
                     </button>
                 </form>
             </div>
@@ -105,7 +106,7 @@
     <div id="join-lobby" class="tab-content">
         <div class="join-lobby-data">
             <div class="table-wrapper-wrapper">
-                <button id="refresh-button" onclick="loadLobbyTable()">{{.Translation.Get "refresh"}}</button>
+                <button id="refresh-button" onclick="loadLobbyTable()">🔄 {{.Translation.Get "refresh"}}</button>
                 <div class="table-wrapper">
                     <table id="lobby-table">
                         <thead>
@@ -138,7 +139,7 @@
                 <span id="votekicking-detail"></span>
                 <span class="lobby-detail">{{.Translation.Get "players-per-ip-limit-setting"}}:</span>
                 <span id="max-clients-ip-detail"></span>
-                <button id="join-button" onclick="onJoin()" disabled>{{.Translation.Get "join-lobby"}}</button>
+                <button id="join-button" onclick="onJoin()" disabled class="join-btn">🚪 {{.Translation.Get "join-lobby"}}</button>
             </div>
         </div>
     </div>
@@ -149,7 +150,34 @@
 </div>
 
 <script type="text/javascript">
-    document.getElementById("username-id").value = localStorage.getItem("username");
+    const FORM_STORAGE_KEY = 'bekeshCreateRoomSettings';
+    const form = document.getElementById("lobby-create");
+
+    function loadFormFromStorage() {
+        let hasFormErrors = document.querySelector('.error-list') !== null;
+        if (hasFormErrors) return;
+        try {
+            let saved = localStorage.getItem(FORM_STORAGE_KEY);
+            if (saved) {
+                let data = JSON.parse(saved);
+                if (data.username) document.getElementById("username-id").value = data.username;
+                if (data.language) { let el = form.querySelector('[name="language"]'); if (el) el.value = data.language; }
+                if (data.drawing_time !== undefined) { let el = form.querySelector('[name="drawing_time"]'); if (el) el.value = data.drawing_time; }
+                if (data.rounds !== undefined) { let el = form.querySelector('[name="rounds"]'); if (el) el.value = data.rounds; }
+                if (data.max_players !== undefined) { let el = form.querySelector('[name="max_players"]'); if (el) el.value = data.max_players; }
+                if (data.public !== undefined) { let el = form.querySelector('[name="public"]'); if (el) el.checked = data.public; }
+                if (data.custom_words !== undefined) { let el = form.querySelector('[name="custom_words"]'); if (el) el.value = data.custom_words; }
+                if (data.custom_words_chance !== undefined) { let el = form.querySelector('[name="custom_words_chance"]'); if (el) el.value = data.custom_words_chance; }
+                if (data['words-per-round'] !== undefined) { let el = form.querySelector('[name="words-per-round"]'); if (el) el.value = data['words-per-round']; }
+                if (data.clients_per_ip_limit !== undefined) { let el = form.querySelector('[name="clients_per_ip_limit"]'); if (el) el.value = data.clients_per_ip_limit; }
+                if (data.enable_votekick !== undefined) { let el = form.querySelector('[name="enable_votekick"]'); if (el) el.checked = data.enable_votekick; }
+            } else {
+                if (localStorage.getItem("username")) document.getElementById("username-id").value = localStorage.getItem("username");
+                if (localStorage.getItem("customWords")) { let el = form.querySelector('[name="custom_words"]'); if (el) el.value = localStorage.getItem("customWords"); }
+            }
+        } catch (e) {}
+    }
+    loadFormFromStorage();
 
     let lobbyTableLoaded = false;
     let lobbyTableBody = document.getElementById("lobby-table-body");
@@ -170,7 +198,7 @@
 
     function onJoin() {
 
-        window.open("{{.RootPath}}/ssrEnterLobby?lobby_id=" + selectedLobby, "_self");
+        window.open("{{.RootPath}}/lobby?lobby_id=" + selectedLobby, "_self");
     }
 
     function loadLobbyTable() {
@@ -232,10 +260,32 @@
 
 
 
+    function saveFormToStorage() {
+        try {
+            let data = {
+                username: document.getElementById("username-id")?.value || "",
+                language: form.querySelector('[name="language"]')?.value || "",
+                drawing_time: form.querySelector('[name="drawing_time"]')?.value || "",
+                rounds: form.querySelector('[name="rounds"]')?.value || "",
+                max_players: form.querySelector('[name="max_players"]')?.value || "",
+                public: form.querySelector('[name="public"]')?.checked || false,
+                custom_words: form.querySelector('[name="custom_words"]')?.value || "",
+                custom_words_chance: form.querySelector('[name="custom_words_chance"]')?.value || "",
+                "words-per-round": form.querySelector('[name="words-per-round"]')?.value || "",
+                clients_per_ip_limit: form.querySelector('[name="clients_per_ip_limit"]')?.value || "",
+                enable_votekick: form.querySelector('[name="enable_votekick"]')?.checked || false
+            };
+            localStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(data));
+        } catch (e) {}
+    }
+
     function saveAndCreate() {
-        localStorage.setItem("username", document.getElementById("username-id").value);
+        saveFormToStorage();
         return true;
     }
+
+    form.addEventListener('change', saveFormToStorage);
+    form.addEventListener('input', function() { setTimeout(saveFormToStorage, 0); });
 
     function showLobbyDetails(lobby) {
         if (lobby === null) {

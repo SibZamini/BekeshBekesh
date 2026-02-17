@@ -30,12 +30,12 @@ func createDefaultLobbyCreatePageData() *LobbyCreatePageData {
 		BasePageConfig:    currentBasePageConfig,
 		SettingBounds:     game.LobbySettingBounds,
 		Languages:         game.SupportedLanguages,
-		Public:            "false",
+		Public:            "true",
 		DrawingTime:       "120",
 		Rounds:            "4",
 		MaxPlayers:        "12",
 		CustomWordsChance: "50",
-		ClientsPerIPLimit: "1",
+		ClientsPerIPLimit: "12",
 		EnableVotekick:    "true",
 		Language:          "words-fa",
 		WordsPerRound:     "3",
@@ -169,5 +169,5 @@ func ssrCreateLobby(w http.ResponseWriter, r *http.Request) {
 	//We only add the lobby if we could do all necessary pre-steps successfully.
 	state.AddLobby(lobby)
 
-	http.Redirect(w, r, currentBasePageConfig.RootPath+"/ssrEnterLobby?lobby_id="+lobby.LobbyID, http.StatusFound)
+	http.Redirect(w, r, currentBasePageConfig.RootPath+"/lobby?lobby_id="+lobby.LobbyID, http.StatusFound)
 }

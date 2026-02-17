@@ -3,7 +3,7 @@
 <html dir="rtl" lang="fa">
 
 <head>
-    <title>Bekesh Bekesh</title>
+    <title>بِکِش بِکِش</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=0.75 maximum-scale=0.75, user-scalable=0">
     {{template "font-decl" .}}
@@ -104,7 +104,7 @@
                             <div class="center-dialog-content">
 
                                 <div class="button-center-wrapper">
-                                    <button class="dialog-button" onclick="startGame()">{{.Translation.Get "start"}}</button>
+                                    <button class="dialog-button dialog-button-primary" onclick="startGame()">{{.Translation.Get "start"}}</button>
                                 </div>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                                     <div style="display: flex; flex-direction: row;">
                                         <input class="namechange-field" type="text"
                                             id="namechange-field-unstarted-dialog"></input>
-                                        <button class="dialog-button"
+                                        <button class="dialog-button dialog-button-primary"
                                             onclick="changeName(document.getElementById('namechange-field-unstarted-dialog').value)">{{.Translation.Get "apply"}}</button>
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@
                                 <form onsubmit="changeName(document.getElementById('namechange-field').value);hideNameChangeDialog();return false">
                                     <input class="namechange-field" type="text" id="namechange-field"></input>
                                     <div class="button-center-wrapper">
-                                        <button class="dialog-button" type="submit">{{.Translation.Get "save"}}</button>
+                                        <button class="dialog-button dialog-button-primary" type="submit">{{.Translation.Get "save"}}</button>
                                         <button class="dialog-button" type="button"
                                             onclick="hideNameChangeDialog()">{{.Translation.Get "close"}}</button>
                                     </div>
@@ -196,7 +196,7 @@
                                                     true}}checked{{end}} />
                                             </div>
                                         </details>
-                                        <button class="dialog-button" onclick="saveLobbySettings()"
+                                        <button class="dialog-button dialog-button-primary" onclick="saveLobbySettings()"
                                             style="grid-column-start: 1; grid-column-end: 3;">
                                             {{.Translation.Get "save-settings"}}
                                         </button>
@@ -212,7 +212,7 @@
                         <div id="game-over-dialog" class="center-dialog">
                             <span id="game-over-dialog-title" class="dialog-title">Game over!</span>
                             <div id="game-over-scoreboard"></div>
-                            <button id="restart-button" class="dialog-button" onclick="reStartGame()">شروع دوباره</button>
+                            <button id="restart-button" class="dialog-button dialog-button-primary" onclick="reStartGame()">شروع دوباره</button>
                         </div>
 
                         <div id="kick-dialog" class="center-dialog">
@@ -385,8 +385,6 @@
                 </form>
             </div>
         </div>
-
-        {{template "footer" .}}
     </div>
 
     <script type="text/javascript" src="{{.RootPath}}/resources/floodfill.js"></script>

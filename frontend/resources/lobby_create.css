@@ -4,8 +4,7 @@
     align-items: center;
     justify-content: center;
     opacity: 1;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 2rem auto;
 }
 
 .content-container {
@@ -27,15 +26,13 @@
     color: white;
     font-weight: bold;
     margin-bottom: 20px;
-    grid-column-start: 1;
-    grid-column-end: 3;
 }
 
 
 .tab-header {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin: 0 1rem 0 1rem;
+    margin: 2rem 1rem 0 1rem;
     margin-left: 10%;
     margin-right: 10%;
 }
@@ -62,8 +59,8 @@
     border: none;
     background-color:rgba(255, 255, 255, 0.4);
     flex: 1 1;
-    margin: 0 1rem 1rem 1rem;
-    padding: 1rem;
+    margin: 2rem 1rem 1rem 1rem;
+    padding: 2rem 1rem 1rem 1rem;
     overflow: auto;
     margin-left: 10%;
     margin-right: 10%;
@@ -72,6 +69,83 @@
 /* display: block causes the element to be visible, since the default value is none */
 #create-lobby {
     display: block;
+}
+
+/* Create room form - two columns, labels stay on one line */
+.create-room-form {
+    display: grid;
+    grid-template-columns: minmax(180px, auto) 1fr minmax(180px, auto) 1fr;
+    gap: 0.9rem 1.5rem;
+    align-items: center;
+    max-width: 900px;
+}
+
+.create-room-form .form-label {
+    white-space: nowrap;
+    min-width: 160px;
+    font-weight: bold;
+    font-family: yekan, serif;
+}
+
+.create-room-form .input-item {
+    min-width: 140px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.create-room-form .input-item[type="checkbox"] {
+    min-width: auto;
+    width: 1.2em;
+    height: 1.2em;
+    cursor: pointer;
+}
+
+.create-room-form .form-textarea {
+    min-height: 60px;
+    resize: vertical;
+}
+
+/* Force custom-words and chance rows to start on new row, input spans rest */
+.create-room-form .form-label-row-start {
+    grid-column: 1;
+}
+
+.create-room-form .form-field-wide {
+    grid-column: 2 / -1;
+    min-width: 0;
+}
+
+.create-room-form .range-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.create-room-form .range-wrapper input[type="range"] {
+    flex: 1;
+    min-width: 80px;
+}
+
+.create-room-form .create-room-btn {
+    grid-column: 1 / -1;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+    background: linear-gradient(135deg, #4a90d9 0%, #357abd 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.create-room-form .create-room-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(74, 144, 217, 0.4);
+}
+
+.content-container {
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 
 .join-lobby-data {
@@ -98,6 +172,29 @@
 
 #refresh-button {
     margin-bottom: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #4a90d9;
+    color: white;
+    border: none;
+}
+
+#refresh-button:hover {
+    background: #357abd;
+}
+
+.join-btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #5cb85c;
+    color: white;
+    border: none;
+}
+
+.join-btn:hover:not(:disabled) {
+    background: #4cae4c;
 }
 
 button{
