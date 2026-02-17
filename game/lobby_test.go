@@ -102,6 +102,16 @@ func Test_simplifyText(t *testing.T) {
 			input: " ",
 			want:  "",
 		},
+		{
+			name:  "Persian Alef with Madda normalized to Alef",
+			input: "آسمان",
+			want:  "اسمان",
+		},
+		{
+			name:  "Persian word with both آ and ا compare equal",
+			input: "آبی",
+			want:  "ابی",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

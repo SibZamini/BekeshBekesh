@@ -1047,7 +1047,10 @@ func (lobby *Lobby) canDraw(player *Player) bool {
 	return lobby.drawer == player && lobby.CurrentWord != ""
 }
 
-var connectionCharacterReplacer = strings.NewReplacer(" ", "", "-", "", "_", "")
+var connectionCharacterReplacer = strings.NewReplacer(
+	" ", "", "-", "", "_", "",
+	"آ", "ا", // Persian: treat Alef with Madda same as Alef when comparing guesses
+)
 
 // simplifyText prepares the string for a more lax comparison of two words.
 // Spaces, dashes, underscores and accented characters are removed or replaced.
